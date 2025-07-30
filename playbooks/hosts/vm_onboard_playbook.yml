@@ -9,7 +9,7 @@
     - name: create admin user 
       ansible.builtin.user:
         name: admin 
-        password: "{{'BludGod980!' | password_hash('sha512') }}"
+        password: "{{'<Password>' | password_hash('sha512') }}"
         state: present
         groups: sudo
         create_home: yes
