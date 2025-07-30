@@ -1,0 +1,8 @@
+- hosts: onboarding
+  tasks:
+    - name: add admin ssh key
+      authorized_key:
+        user: admin 
+        state: present
+        key: "{{ lookup('file', '~/.ssh/id_ed25519.pub') }}"
+      becomed: yes
