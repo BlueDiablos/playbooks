@@ -14,21 +14,3 @@
           - sudo
         state: present
         update_cache: yes
-
-    - name: create admin user
-      ansible.builtin.user:
-        name: admin
-        password: "{{'BludGod980!' | password_hash('sha512') }}"
-        state: present
-        groups: sudo
-        create_home: yes
-        home: /home/admin
-        shell: "/bin/bash"
-      become: yes
-
-    - name: add admin ssh key
-      authorized_key:
-        user: admin
-        state: present
-        key: "{{ lookup('file', '~/.ssh/id_ed25519.pub') }}"
-      become: yes
