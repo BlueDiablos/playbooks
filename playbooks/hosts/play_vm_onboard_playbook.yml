@@ -1,0 +1,31 @@
+- hosts: onboarding
+  become: true
+  tasks:
+    - name: upgrade packages
+      ansible.builtin.apt:
+        name: "*"
+        state: latest
+      become: true
+      when:
+        - ansible_pkg_mgr == "apt"
+
+    - name: add packages
+      ansible.builtin.apt:
+        name:
+          - neovim
+          - stow
+          - net-tools
+          - curl
+          - build-essential
+        state: present
+      become: true
+      when:
+        - ansible_pkg_mgr == "apt"
+
+    - name: Pull Dotfiles
+      ansible.builtin.git:
+        repo: "https://github.com/BlueDiablos/dotfiles.git"
+        dest: "$HOME/dotfiles"
+        version: "main"
+        force: yes
+        accept_hostkey: yes
